@@ -1,0 +1,218 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #ffffff; 
+    padding: 20px;
+    color: #333;
+}
+
+nav {
+    background: #f8c8d8; 
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: #d6336c;
+    font-weight: bold;
+    margin: 0 15px;
+    font-size: 16px;
+}
+
+nav a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #f9d8e6; 
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input, button {
+    padding: 12px;
+    border: 1px solid #f0b8c8;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 100%;
+    background: #fff;
+    color: #333;
+}
+
+input:focus {
+    outline: none;
+    border-color: #d6336c;
+}
+
+button {
+    background-color: #d6336c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #b82a5a;
+    transform: scale(1.02);
+}
+
+.link {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+}
+
+.link a {
+    color: #d6336c;
+    text-decoration: none;
+}
+
+.error-message {
+    color: #b30000;
+    background: #ffe6e6;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #ff9999;
+}
+
+.card {
+    border: 1px solid #f0b8c8;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background: #fff0f5;
+}
+
+.card h3 {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.status-new { color: #d6336c; font-weight: bold; }
+.status-study { color: #e68a00; font-weight: bold; }
+.status-done { color: #2d8f47; font-weight: bold; }
+
+.review-btn {
+    background-color: #d6336c;
+    margin-top: 10px;
+    font-size: 14px;
+    padding: 8px 15px;
+    width: auto;
+    color: #fff;
+}
+
+.review-btn:hover {
+    background-color: #b82a5a;
+}
+
+.payment-options {
+    margin: 10px 0;
+}
+
+.payment-options label {
+    margin-right: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.admin-buttons button {
+    background-color: #f0b8c8;
+    font-size: 12px;
+    margin-right: 10px;
+    margin-top: 10px;
+    padding: 5px 10px;
+    width: auto;
+    color: #333;
+}
+
+.admin-buttons button:first-child { background-color: #ffb74d; color: #333; }
+.admin-buttons button:last-child { background-color: #81c784; color: #333; }
+
+@media (max-width: 992px) {
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    nav a {
+        margin: 5px 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+    nav a {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+        margin: 0;
+        font-size: 16px;
+        border-bottom: 1px solid #f0b8c8;
+    }
+    nav a:last-child {
+        border-bottom: none;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    .carousel-container {
+        max-width: 100%;
+    }
+
+    .card {
+        padding: 10px;
+    }
+    
+    .admin-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .admin-buttons button {
+        width: 100%;
+        margin: 0;
+    }
+}

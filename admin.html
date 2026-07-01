@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель администратора</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Главная</a>
+        <a href="register.html">Регистрация</a>
+        <a href="login.html">Авторизация</a>
+        <a href="applications.html">Заявки</a>
+        <a href="create-request.html">Создать заявку</a>
+        <a href="admin.html">Админ</a>
+    </nav>
+
+    <div class="container">
+        <h2>Вход в панель администратора</h2>
+        
+        <form method="GET" action="admin.html">
+            <input type="text" name="login" placeholder="Логин" required>
+            <input type="password" name="password" placeholder="Пароль" required>
+            <button type="submit">Войти</button>
+        </form>
+
+        <div style="margin-top: 15px; color: red; text-align: center; font-weight: bold;">
+            <script>
+                if (window.location.href.includes('error')) {
+                    document.write('Неверный логин или пароль!');
+                }
+            </script>
+        </div>
+    </div>
+
+    <div class="container" id="adminPanel" style="display: none;">
+        <h2>Панель управления заявками</h2>
+        <p>Вход выполнен под: <b>Admin</b></p>
+        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd;">
+        
+        <div id="admin-list">
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const login = urlParams.get('login');
+        const password = urlParams.get('password');
+
+        if (login === 'Admin' && password === 'KorokNET') {
+            document.querySelector('.container form').style.display = 'none';
+            document.querySelector('.container h2').style.display = 'none';
+            document.querySelector('.container div').style.display = 'none'; 
+            document.getElementById('adminPanel').style.display = 'block';
+            
+            // ЗАГРУЗКА ЗАЯВОК
+            function getApplications() {
+                let apps = localStorage.getItem('myApps');
+                if (apps) return JSON.parse(apps);
+                return [];
+            }
+
+            function renderAdmin() {
+                const list = document.getElementById('admin-list');
+                const applications = getApplications();
+
+                if (applications.length === 0) {
+                    list.innerHTML = '<p style="text-align:center; color:#888;">Нет заявок для управления.</p>';
+                    return;
+                }
+
+                applications.forEach((app, index) => {
+                    let statusColor = 'status-new';
+                    if (app.status === 'Идет обучение') statusColor = 'status-study';
+                    if (app.status === 'Завершено') statusColor = 'status-done';
+
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <h3>Заявка #${index + 1}</h3>
+                        <p>Курс: ${app.course} | Статус: <span class="${statusColor}">${app.status}</span></p>
+                        <div class="admin-buttons">
+                            <button onclick="changeStatus(${index}, 'Идет обучение')">Идет обучение</button>
+                            <button onclick="changeStatus(${index}, 'Завершено')">Обучение завершено</button>
+                        </div>
+                    `;
+                    list.appendChild(card);
+                });
+            }
+
+            function changeStatus(index, newStatus) {
+                let apps = getApplications();
+                apps[index].status = newStatus;
+                localStorage.setItem('myApps', JSON.stringify(apps));
+                renderAdmin(); // Перерисовываем админку
+            }
+
+            renderAdmin();
+        } else {
+            if (login !== null || password !== null) {
+                window.location.href = "admin.html?error=true";
+            }
+        }
+    </script>
+</body>
+</html>

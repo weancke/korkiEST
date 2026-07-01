@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная - Корочки.есть</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Главная</a>
+        <a href="register.html">Регистрация</a>
+        <a href="login.html">Авторизация</a>
+        <a href="applications.html">Заявки</a>
+        <a href="create-request.html">Создать заявку</a>
+        <a href="admin.html">Админ</a>
+    </nav>
+
+    <div class="container">
+        <h2>Добро пожаловать на портал "Корочки.есть"!</h2>
+        <p>Пройдите регистрацию или авторизуйтесь, чтобы подать заявку на обучение.</p>
+        
+
+<style>
+    .carousel-container {
+        position: relative;
+        max-width: 600px; /* Ширина слайдера */
+        margin: 20px auto;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .carousel-track {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+    .carousel-slide {
+        min-width: 100%;
+    }
+    .carousel-slide img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        display: block;
+    }
+    .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 20px;
+        border-radius: 5px;
+        width: auto;
+    }
+    .carousel-btn:hover { background-color: rgba(0, 0, 0, 0.8); }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+    .carousel-indicators {
+        text-align: center;
+        margin-top: 10px;
+    }
+    .dot {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin: 0 5px;
+        background-color: #bbb;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .dot.active { background-color: #0056b3; }
+</style>
+
+<h2>Наши курсы</h2>
+<div class="carousel-container">
+    <div class="carousel-track" id="track">
+        <!-- Здесь будут картинки -->
+        <div class="carousel-slide"><img src="img/котик1" alt="Курс 1"></div>
+        <div class="carousel-slide"><img src="img/котик2.avif" alt="Курс 2"></div>
+        <div class="carousel-slide"><img src="img/котик3" alt="Курс 3"></div>
+    </div>
+    
+    <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
+    <button class="carousel-btn next" id="nextBtn">&#10095;</button>
+</div>
+<div class="carousel-indicators" id="indicators"></div>
+
+<script>
+    const track = document.getElementById('track');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const indicatorsContainer = document.getElementById('indicators');
+    const slides = track.children;
+    let currentIndex = 0;
+
+    for (let i = 0; i < slides.length; i++) {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(i));
+        indicatorsContainer.appendChild(dot);
+    }
+    const dots = indicatorsContainer.children;
+
+    function updateCarousel() {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        for (let dot of dots) dot.classList.remove('active');
+        dots[currentIndex].classList.add('active');
+    }
+
+    function goToSlide(index) {
+        currentIndex = index;
+        updateCarousel();
+    }
+
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex === slides.length - 1) currentIndex = 0;
+        else currentIndex++;
+        updateCarousel();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex === 0) currentIndex = slides.length - 1;
+        else currentIndex--;
+        updateCarousel();
+    });
+
+    setInterval(() => {
+        if (currentIndex === slides.length - 1) currentIndex = 0;
+        else currentIndex++;
+        updateCarousel();
+    }, 3000);
+</script>
+    </div>
+
+</body>
+</html>

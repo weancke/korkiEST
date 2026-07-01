@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать заявку</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Главная</a>
+        <a href="register.html">Регистрация</a>
+        <a href="login.html">Авторизация</a>
+        <a href="applications.html">Заявки</a>
+        <a href="create-request.html">Создать заявку</a>
+        <a href="admin.html">Админ</a>
+    </nav>
+
+    <div class="container">
+        <h2>Оставить заявку на курс</h2>
+        <form id="requestForm">
+            <input type="text" id="courseName" placeholder="Название курса" required>
+            <input type="date" id="courseDate" required>
+            <div class="payment-options">
+                <label><input type="radio" name="pay" value="Наличными" required> Наличными</label>
+                <label><input type="radio" name="pay" value="Перевод по телефону"> Перевод по телефону</label>
+            </div>
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('requestForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            
+            const course = document.getElementById('courseName').value;
+            const date = document.getElementById('courseDate').value;
+            const payment = document.querySelector('input[name="pay"]:checked').value;
+
+            
+            const newApp = {
+                course: course,
+                date: date,
+                payment: payment,
+                status: 'Новая' 
+            };
+
+          
+            let apps = localStorage.getItem('myApps');
+            if (apps) {
+                apps = JSON.parse(apps);
+            } else {
+                apps = [];
+            }
+
+            
+            apps.push(newApp);
+            localStorage.setItem('myApps', JSON.stringify(apps));
+
+            
+            alert('Заявка успешно создана!');
+            window.location.href = 'applications.html';
+        });
+    </script>
+</body>
+</html>

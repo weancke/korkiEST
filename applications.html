@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои заявки</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Главная</a>
+        <a href="register.html">Регистрация</a>
+        <a href="login.html">Авторизация</a>
+        <a href="applications.html">Заявки</a>
+        <a href="create-request.html">Создать заявку</a>
+        <a href="admin.html">Админ</a>
+    </nav>
+
+    <div class="container">
+        <h2>Мои заявки</h2>
+        <div id="applications-list">
+        </div>
+    </div>
+
+    <script>
+        function getApplications() {
+            let apps = localStorage.getItem('myApps');
+            if (apps) {
+                return JSON.parse(apps);
+            }
+            return []; 
+        }
+
+        function renderApplications() {
+            const list = document.getElementById('applications-list');
+            list.innerHTML = ''; 
+            
+            const applications = getApplications();
+
+            if (applications.length === 0) {
+                list.innerHTML = '<p style="text-align:center; color:#888;">У вас пока нет заявок.</p>';
+                return;
+            }
+
+            applications.forEach((app, index) => {
+                let statusColor = 'status-new';
+                if (app.status === 'Идет обучение') statusColor = 'status-study';
+                if (app.status === 'Завершено') statusColor = 'status-done';
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <h3>Курс: ${app.course}</h3>
+                    <p>Дата: ${app.date} | Статус: <span class="${statusColor}">${app.status}</span></p>
+                    <button class="review-btn" onclick="alert('Отзыв для курса ${app.course}')">Оставить отзыв</button>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        renderApplications();
+    </script>
+</body>
+</html>
